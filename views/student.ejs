@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/styles/student.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <img src="/assets/logo.png" alt="Logo" class="logo" />
+        <h1>Student Dashboard</h1>
+      </div>
+
+      <a href="/logout" class="logout-btn">Logout</a>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+      <h2>Available Teachers</h2>
+
+      <div class="teacher-list">
+        <!-- Teacher Card -->
+        <div class="teacher-card">
+          <div class="teacher-info">
+            <!-- IMAGE -->
+            <img src="/assets/teacher.jpg" alt="Teacher" class="teacher-img" />
+
+            <!-- CONTENT -->
+            <div class="teacher-details">
+              <h3>Dr. John Smith</h3>
+              <p><strong>Department:</strong> Computer Science</p>
+              <p><strong>Subject:</strong> Data Structures</p>
+              <p><strong>Availability:</strong> Mon – Fri</p>
+            </div>
+          </div>
+
+          <button class="book-btn">Book Appointment</button>
+        </div>
+
+        <div class="teacher-card">
+          <div class="teacher-info">
+            <img src="/assets/teacher.jpg" alt="Teacher" class="teacher-img" />
+
+            <div class="teacher-details">
+              <h3>Prof. Jane Adams</h3>
+              <p><strong>Department:</strong> Mathematics</p>
+              <p><strong>Subject:</strong> Linear Algebra</p>
+              <p><strong>Availability:</strong> Tue – Thu</p>
+            </div>
+          </div>
+
+          <button class="book-btn">Book Appointment</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2026 Appointment System. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

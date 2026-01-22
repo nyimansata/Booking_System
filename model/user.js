@@ -3,20 +3,26 @@ const mongoose = require("mongoose");
 const UserSchema = mongoose.Schema({
   Name: {
     type: String,
-    require: true,
+    required: [true, "Please name is required"],
   },
   Email: {
     type: String,
-    require: true,
+    required: [true, "Please email is required"],
     // unique: true,
   },
   Password: {
     type: String,
-    require: true,
+    required: [true, "Please password is required"],
   },
   role: {
     type: String,
-    enum: ["student", "admin"],
+    enum: ["student", "Admin", "Lecturer"],
+  },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
+  createdAt: {
+    type: String,
+    default: Date.now,
   },
 });
 
