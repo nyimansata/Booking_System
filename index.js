@@ -46,6 +46,16 @@ app.get("/student", (req, res) => {
   res.render("student");
 });
 
+// admin
+app.get("/admin", (req, res) => {
+  res.render("admin");
+});
+
+// lecturer
+app.get("/lecturer", (req, res) => {
+  res.render("lecturer");
+});
+
 // db + server
 mongoose
   .connect(process.env.DB_URL, { dbName: "appoinment_system" })

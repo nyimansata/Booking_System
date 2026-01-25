@@ -16,7 +16,7 @@ router.get("/:id", getTeacherById);
 
 router.post("/", addTeacher);
 
-router.put("/:id", updateTeacher);
+router.patch("/:id", updateTeacher);
 
 router.delete("/:id", deleteTeacher);
 

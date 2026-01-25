@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/styles/admin.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>Admin</h2>
+        </div>
+
+        <nav>
+          <a class="active" href="#">Dashboard</a>
+          <a href="/student">Available Lecturers</a>
+          <a href="/lecturer">Appointments</a>
+          <a href="#">Settings</a>
+        </nav>
+
+        <a href="/logout" class="logout">Logout</a>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <header class="topbar">
+          <h1>Add Lecture</h1>
+        </header>
+
+        <section class="card">
+          <form class="lecture-form" id="lectureForm">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" placeholder="Enter lecture title" required />
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="Enter email address" required />
+            </div>
+
+            <div class="form-group">
+              <label>Department</label>
+              <input type="text" placeholder="Enter department" required />
+            </div>
+
+            <div class="form-group">
+              <label>Subject</label>
+              <input type="text" placeholder="Enter subject" required />
+            </div>
+
+            <div class="form-group">
+              <label>Date & Time</label>
+              <input type="datetime-local" required />
+            </div>
+
+            <button type="submit">Add Lecture</button>
+          </form>
+        </section>
+
+        <!-- pending lecturers -->
+        <section>
+          <h2 class="section-title">Pending Lecturers</h2>
+
+          <div class="pending-list" id="pendingList"></div>
+        </section>
+      </main>
+    </div>
+    <script src="/js/admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,232 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ================= LAYOUT ================= */
+body {
+  background: #f5f7fb;
+  color: #1e293b;
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 240px;
+  background: #1e293b;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.sidebar-header img {
+  width: 40px;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 12px 15px;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: background 0.3s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background: #334155;
+  color: #fff;
+}
+
+.logout {
+  margin-top: auto;
+  padding: 12px;
+  text-align: center;
+  background: #ef4444;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.logout:hover {
+  background: #dc2626;
+}
+
+/* ================= MAIN ================= */
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.topbar h1 {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+/* ================= FORM CARD ================= */
+.card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+}
+
+.lecture-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* ================= BUTTON ================= */
+button {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+/* ================= PENDING LIST ================= */
+.section-title {
+  margin-top: 70px;
+  margin-bottom: 25px;
+}
+
+/* Grid container */
+#pendingList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.pending-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.pending-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-header h3 {
+  font-size: 18px;
+}
+
+/* Badge */
+.badge {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.badge.pending {
+  background: #fde68a;
+  color: #92400e;
+}
+
+/* Body */
+.card-body p {
+  font-size: 14px;
+  margin: 6px 0;
+  color: #475569;
+}
+
+/* Actions */
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Action buttons */
+.btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn.approve {
+  background: #22c55e;
+  color: white;
+}
+
+.btn.edit {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn.delete {
+  background: #ef4444;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}

@@ -8,15 +8,17 @@ const UserSchema = mongoose.Schema({
   Email: {
     type: String,
     required: [true, "Please email is required"],
+    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "please add a valid email"],
     // unique: true,
   },
   Password: {
     type: String,
     required: [true, "Please password is required"],
+    minlength: 12,
   },
   role: {
     type: String,
-    enum: ["student", "Admin", "Lecturer"],
+    enum: ["Student", "Admin", "Lecturer"],
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,

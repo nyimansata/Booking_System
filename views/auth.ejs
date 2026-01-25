@@ -15,15 +15,20 @@
           <h1>Login</h1>
           <p>Welcome to Appointment System</p>
         </div>
-        <form class="form">
+        <form class="form" id="loginForm">
           <div class="form-group">
             <label>Email</label>
-            <input type="email" placeholder="Email" />
+            <input name="Email" type="email" placeholder="Email" required />
           </div>
 
           <div class="form-group">
             <label>Password</label>
-            <input type="password" placeholder="Password" />
+            <input
+              name="Password"
+              type="password"
+              placeholder="Password"
+              required
+            />
           </div>
 
           <div class="form-group">
@@ -36,7 +41,6 @@
           </div>
 
           <button type="submit">Submit</button>
-          <a href="/student" class="btn">Submit</a>
 
           <p class="no-account">
             Don't have an account?
@@ -47,5 +51,6 @@
         </form>
       </div>
     </div>
+    <script src="/js/auth.js"></script>
   </body>
 </html>

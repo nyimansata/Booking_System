@@ -1,136 +1,116 @@
 const Teacher = require("../model/teachers");
-const AsyncHandler = require("../middlewares/async");
 const path = require("path");
 
-// get all teachers
+/* ---------------- GET ALL TEACHERS ---------------- */
 const getAllTeachers = async (req, res, next) => {
   try {
-    const allTeachers = await Teacher.find();
-
-    if (!addTeacher) {
-      res.status(400).send("Teacher is found");
-    }
-
-    res.send(allTeachers);
+    const teachers = await Teacher.find();
+    res.status(200).json(teachers);
   } catch (error) {
-    // res.status(500).send(error.message);
     next(error);
   }
 };
 
-//get teacher by id
+/* ---------------- GET TEACHER BY ID ---------------- */
 const getTeacherById = async (req, res, next) => {
   try {
-    const getTeacherById = await Teacher.findById(req.params.id);
+    const teacher = await Teacher.findById(req.params.id);
 
-    if (!getTeacherById) {
-      res.status(400).send("no teacher with this Id found");
+    if (!teacher) {
+      return res.status(404).json({ message: "Teacher not found" });
     }
 
-    res.status(200).send(getTeacherById);
+    res.status(200).json(teacher);
   } catch (error) {
-    // res.status(500).send(error.message);
     next(error);
   }
 };
 
-// create a teacher
+/* ---------------- ADD TEACHER ---------------- */
 const addTeacher = async (req, res) => {
   try {
-    const createTeacher = await Teacher.create(req.body);
-
-    if (!createTeacher) {
-      res.status(400).send("can not add this teacher");
-    }
-
-    res.status(201).send(createTeacher);
+    const teacher = await Teacher.create(req.body);
+    res.status(201).json(teacher);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(400).json({ message: error.message });
   }
 };
 
-// update teacher
+/* ---------------- UPDATE TEACHER (APPROVE / EDIT) ---------------- */
 const updateTeacher = async (req, res) => {
   try {
-    const updateTeacher = await Teacher.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true },
-    );
+    const teacher = await Teacher.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
-    if (!updateTeacher) {
-      res.status(400).send("can not update this teacher");
+    if (!teacher) {
+      return res.status(404).json({ message: "Teacher not found" });
     }
 
-    res.send(updateTeacher);
+    res.status(200).json(teacher);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(400).json({ message: error.message });
   }
 };
 
-// delete teacher
+/* ---------------- DELETE TEACHER ---------------- */
 const deleteTeacher = async (req, res) => {
   try {
-    const destroyTeacher = await Teacher.findByIdAndDelete(req.params.id);
+    const teacher = await Teacher.findByIdAndDelete(req.params.id);
 
-    if (!destroyTeacher) {
-      return res.status(400).send("can not delete this teacher");
+    if (!teacher) {
+      return res.status(404).json({ message: "Teacher not found" });
     }
 
-    res.send(destroyTeacher);
+    res.status(200).json({ message: "Teacher deleted successfully" });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(400).json({ message: error.message });
   }
 };
 
-// file upload
+/* ---------------- UPLOAD TEACHER PHOTO ---------------- */
 const uploadTeacherPic = async (req, res) => {
-  const getTeacherById = await Teacher.findById(req.params.id);
+  const teacher = await Teacher.findById(req.params.id);
 
-  if (!getTeacherById) {
-    return res.status(400).send("no teacher with this Id found");
+  if (!teacher) {
+    return res.status(404).json({ message: "Teacher not found" });
   }
 
-  if (!req.files) {
-    return res.status(400).send("upload picture");
+  if (!req.files || !req.files.file) {
+    return res.status(400).json({ message: "Please upload a file" });
   }
 
   const file = req.files.file;
 
-  // check if the file is image or not
   if (!file.mimetype.startsWith("image")) {
-    return res.status(400).send("please upload image");
+    return res.status(400).json({ message: "Please upload an image" });
   }
 
-  // check file size
   if (file.size > process.env.MAX_FILE_UPLOAD) {
-    return res
-      .status(400)
-      .send(`please upload image less than ${process.env.MAX_FILE_UPLOAD}`);
+    return res.status(400).json({
+      message: `Image must be smaller than ${process.env.MAX_FILE_UPLOAD}`,
+    });
   }
 
-  // create custom file
-  file.name = `photo_${Teacher._id}${path.parse(file.name).ext}`;
+  file.name = `photo_${req.params.id}${path.parse(file.name).ext}`;
 
-  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (error) => {
-    if (error) {
-      return res
-        .status(400)
-        .send(
-          `problem with file upload , ${process.env.FILE_UPLOAD_PATH} ${error.message}`,
-        );
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+    if (err) {
+      return res.status(500).json({ message: err.message });
     }
 
     await Teacher.findByIdAndUpdate(req.params.id, { photo: file.name });
-    console.log(file.name);
+
+    res.status(200).json({ success: true, photo: file.name });
   });
 };
 
 module.exports = {
   getAllTeachers,
+  getTeacherById,
   addTeacher,
   updateTeacher,
   deleteTeacher,
-  getTeacherById,
   uploadTeacherPic,
 };
