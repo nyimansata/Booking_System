@@ -59,14 +59,17 @@ const Login = async (req, res) => {
     }
 
     // Create token
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+    // const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+    //   expiresIn: "1h",
+    // });
+    jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "1h",
     });
 
     // Send response
     res.status(200).json({
       message: "User successfully logged in",
-      token,
+      // token,
       // user,
       role: user.role,
     });
@@ -75,4 +78,8 @@ const Login = async (req, res) => {
   }
 };
 
-module.exports = { Register, Login };
+// logout
+const Logout = async (req, res) => {
+  await res.status(200).json({ message: "User successfully logged out" });
+};
+module.exports = { Register, Login, Logout };

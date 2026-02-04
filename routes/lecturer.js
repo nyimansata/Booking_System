@@ -1,4 +1,6 @@
 const express = require("express");
+const { protect } = require("../middlewares/auth");
+const { authorize } = require("../middlewares/role");
 const {
   getAllTeachers,
   addTeacher,
@@ -14,11 +16,11 @@ router.get("/", getAllTeachers);
 
 router.get("/:id", getTeacherById);
 
-router.post("/", addTeacher);
+router.post("/", protect, authorize("Admin"), addTeacher);
 
-router.patch("/:id", updateTeacher);
+router.patch("/:id", protect, authorize("Admin"), updateTeacher);
 
-router.delete("/:id", deleteTeacher);
+router.delete("/:id", protect, authorize("Admin"), deleteTeacher);
 
 router.put("/:id/photo", uploadTeacherPic);
 

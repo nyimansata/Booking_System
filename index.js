@@ -7,7 +7,7 @@ const fileUpload = require("express-fileupload");
 const ErrorHandler = require("./middlewares/error");
 
 const AuthRoute = require("./routes/auths");
-const TeachersRoute = require("./routes/teachers");
+const TeachersRoute = require("./routes/lecturer");
 
 const app = express();
 
