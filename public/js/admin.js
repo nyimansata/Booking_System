@@ -1,31 +1,13 @@
 const form = document.getElementById("lectureForm");
 let editingLecturerId = null;
+const token = localStorage.getItem("token");
+
+if (!token) {
+  alert("You are not logged in");
+  window.location.href = "/";
+}
 
 /* ---------------- ADD LECTURER ---------------- */
-// form.addEventListener("submit", async (e) => {
-//   e.preventDefault();
-
-//   const data = {
-//     name: form.querySelector("input[type='text']").value,
-//     email: form.querySelector("input[type='email']").value,
-//     department: form.querySelectorAll("input[type='text']")[1].value,
-//     subject: form.querySelectorAll("input[type='text']")[2].value,
-//     dateTime: form.querySelector("input[type='datetime-local']").value,
-//   };
-
-//   const res = await fetch("http://localhost:5000/api/v1/teachers", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(data),
-//   });
-
-//   if (res.ok) {
-//     alert("Lecture added successfully");
-//     form.reset();
-//     loadLecturers();
-//   }
-// });
-
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -43,9 +25,13 @@ form.addEventListener("submit", async (e) => {
 
   const method = editingLecturerId ? "PATCH" : "POST";
 
+  // ADD / UPDATE LECTURER (POST + PATCH)
   const res = await fetch(url, {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(data),
   });
 
@@ -112,10 +98,12 @@ async function loadLecturers() {
 /* ---------------- APPROVE LECTURER ---------------- */
 async function approveLecturer(id) {
   console.log("Approving:", id);
-
   const res = await fetch(`http://localhost:5000/api/v1/teachers/${id}`, {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ approved: true }),
   });
 
@@ -136,6 +124,9 @@ async function deleteLecturer(id) {
   try {
     const res = await fetch(`http://localhost:5000/api/v1/teachers/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     if (!res.ok) {

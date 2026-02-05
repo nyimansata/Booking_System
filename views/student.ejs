@@ -37,6 +37,19 @@
       <div class="teacher-list" id="teacherList"></div>
     </main>
 
+    <!-- modal -->
+    <div id="bookingModal" class="modal">
+      <div class="modal-content">
+        <h3>Book Appointment</h3>
+
+        <input type="datetime-local" id="appointmentDate" />
+        <textarea id="appointmentMessage" placeholder="Message"></textarea>
+
+        <button onclick="submitAppointment()">Submit</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="footer">
       <p>© 2026 Appointment System. All rights reserved.</p>

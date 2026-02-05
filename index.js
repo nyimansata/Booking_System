@@ -8,6 +8,7 @@ const ErrorHandler = require("./middlewares/error");
 
 const AuthRoute = require("./routes/auths");
 const TeachersRoute = require("./routes/lecturer");
+const appointmentRoutes = require("./routes/appointment");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(mongan("dev"));
 // routes
 app.use("/api/v1/auth", AuthRoute);
 app.use("/api/v1/teachers", TeachersRoute);
+app.use("/api/v1/appointments", appointmentRoutes);
 
 // error handling
 app.use(ErrorHandler);

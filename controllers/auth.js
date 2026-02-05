@@ -42,40 +42,30 @@ const Register = async (req, res) => {
   }
 };
 
+// controllers/auth.js
 const Login = async (req, res) => {
-  try {
-    const { Email, Password } = req.body;
+  const { Email, Password } = req.body;
 
-    // Check if user exists
-    const user = await User.findOne({ Email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Compare password
-    const isMatch = await bcrypt.compare(Password, user.Password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
-
-    // Create token
-    // const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-    //   expiresIn: "1h",
-    // });
-    jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "1h",
-    });
-
-    // Send response
-    res.status(200).json({
-      message: "User successfully logged in",
-      // token,
-      // user,
-      role: user.role,
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  const user = await User.findOne({ Email });
+  if (!user) {
+    return res.status(401).json({ message: "Invalid credentials" });
   }
+
+  const isMatch = await bcrypt.compare(Password, user.Password);
+  if (!isMatch) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const token = jwt.sign(
+    { id: user._id, role: user.role },
+    process.env.SECRET_KEY,
+    { expiresIn: "1d" },
+  );
+
+  res.json({
+    token,
+    role: user.role,
+  });
 };
 
 // logout

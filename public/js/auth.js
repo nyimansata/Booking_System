@@ -18,22 +18,26 @@ form.addEventListener("submit", async (e) => {
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.message);
+      alert(data.message || "Login failed");
       return;
     }
 
+    // TORE AUTH DATA AFTER SUCCESS
     localStorage.setItem("token", data.token);
+    localStorage.setItem("role", data.role);
 
-    // ROLE-BASED NAVIGATION
+    // ROLE-BASED REDIRECT (BACKEND ROLE ONLY)
     if (data.role === "Admin") {
       window.location.href = "/admin";
     } else if (data.role === "Student") {
       window.location.href = "/student";
     } else if (data.role === "Lecturer") {
       window.location.href = "/lecturer";
+    } else {
+      alert("Unknown role");
     }
   } catch (err) {
     console.error(err);
-    alert("Login failed");
+    alert("Login failed. Please try again.");
   }
 });
