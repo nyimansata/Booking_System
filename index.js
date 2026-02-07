@@ -27,7 +27,7 @@ app.use(mongan("dev"));
 
 // routes
 app.use("/api/v1/auth", AuthRoute);
-app.use("/api/v1/teachers", TeachersRoute);
+app.use("/api/v1/lecturers", TeachersRoute);
 app.use("/api/v1/appointments", appointmentRoutes);
 
 // error handling

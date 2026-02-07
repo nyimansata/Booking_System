@@ -2,26 +2,25 @@ const express = require("express");
 const { protect } = require("../middlewares/auth");
 const { authorize } = require("../middlewares/role");
 const {
-  getAllTeachers,
-  addTeacher,
-  updateTeacher,
-  deleteTeacher,
-  getTeacherById,
-  uploadTeacherPic,
-} = require("../controllers/teachers");
+  getAllLecturers,
+  getLecturerById,
+  addLecturer,
+  updateLecturer,
+  deleteLecturer,
+  uploadLecturerPic,
+} = require("../controllers/lecturer");
 
 const router = express.Router();
 
-router.get("/", getAllTeachers);
+router.get("/", getAllLecturers);
 
-router.get("/:id", getTeacherById);
+router.get("/:id", getLecturerById);
 
-router.post("/", protect, authorize("Admin"), addTeacher);
+router.post("/", protect, authorize("Admin"), addLecturer);
 
-router.patch("/:id", protect, authorize("Admin"), updateTeacher);
+router.patch("/:id", protect, authorize("Admin"), updateLecturer);
 
-router.delete("/:id", protect, authorize("Admin"), deleteTeacher);
+router.delete("/:id", protect, authorize("Admin"), deleteLecturer);
 
-router.put("/:id/photo", uploadTeacherPic);
-
+router.put("/:id/photo", uploadLecturerPic);
 module.exports = router;

@@ -1,6 +1,7 @@
 const User = require("../model/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const Lecturer = require("../model/lecturer");
 
 const Register = async (req, res) => {
   try {
@@ -26,6 +27,17 @@ const Register = async (req, res) => {
       Password: hashPassword,
       role,
     });
+
+    // AUTO-CREATE lecturer profile
+    if (role === "Lecturer") {
+      await Lecturer.create({
+        user: newUser._id,
+        email: Email,
+        department: "",
+        subject: "",
+        approved: true,
+      });
+    }
 
     // Create token
     const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, {
@@ -54,6 +66,21 @@ const Login = async (req, res) => {
   const isMatch = await bcrypt.compare(Password, user.Password);
   if (!isMatch) {
     return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  if (user.role === "Lecturer") {
+    const lecturer = await Lecturer.findOne({ email: user.Email });
+
+    if (!lecturer) {
+      return res.status(400).json({
+        message: "Lecturer profile not created by admin",
+      });
+    }
+
+    if (!lecturer.user) {
+      lecturer.user = user._id;
+      await lecturer.save();
+    }
   }
 
   const token = jwt.sign(

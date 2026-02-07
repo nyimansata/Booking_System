@@ -20,8 +20,8 @@ form.addEventListener("submit", async (e) => {
   };
 
   const url = editingLecturerId
-    ? `http://localhost:5000/api/v1/teachers/${editingLecturerId}`
-    : "http://localhost:5000/api/v1/teachers";
+    ? `http://localhost:5000/api/v1/lecturers/${editingLecturerId}`
+    : "http://localhost:5000/api/v1/lecturers";
 
   const method = editingLecturerId ? "PATCH" : "POST";
 
@@ -54,7 +54,7 @@ form.addEventListener("submit", async (e) => {
 document.addEventListener("DOMContentLoaded", loadLecturers);
 
 async function loadLecturers() {
-  const res = await fetch("http://localhost:5000/api/v1/teachers");
+  const res = await fetch("http://localhost:5000/api/v1/lecturers");
   const lecturers = await res.json();
 
   const pendingList = document.getElementById("pendingList");
@@ -98,7 +98,7 @@ async function loadLecturers() {
 /* ---------------- APPROVE LECTURER ---------------- */
 async function approveLecturer(id) {
   console.log("Approving:", id);
-  const res = await fetch(`http://localhost:5000/api/v1/teachers/${id}`, {
+  const res = await fetch(`http://localhost:5000/api/v1/lecturers/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -122,7 +122,7 @@ async function deleteLecturer(id) {
   if (!confirmDelete) return;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/v1/teachers/${id}`, {
+    const res = await fetch(`http://localhost:5000/api/v1/lecturers/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ async function deleteLecturer(id) {
 /* ---------------- EDIT LECTURER ---------------- */
 async function editLecturer(id) {
   try {
-    const res = await fetch(`http://localhost:5000/api/v1/teachers/${id}`);
+    const res = await fetch(`http://localhost:5000/api/v1/lecturers/${id}`);
     const lecturer = await res.json();
 
     // Fill form inputs

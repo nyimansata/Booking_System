@@ -5,9 +5,26 @@ const Lecturer = require("../model/lecturer");
 const bookAppointment = async (req, res) => {
   const { lecturerId, dateTime, message } = req.body;
 
+  // Try as Lecturer ID first
+  let lecturer = await Lecturer.findById(lecturerId);
+
+  // If not found, try as User ID
+  if (!lecturer) {
+    lecturer = await Lecturer.findOne({ user: lecturerId });
+  }
+
+  if (!lecturer) {
+    return res.status(404).json({ message: "Lecturer profile not found" });
+  }
+
+  // logging for debugging
+  console.log("📩 RAW req.body:", req.body);
+  console.log("🆔 lecturerId received:", lecturerId);
+  console.log("🧾 All lecturers in DB:", await Lecturer.find());
+
   const appointment = await Appointment.create({
     student: req.user._id,
-    lecturer: lecturerId,
+    lecturer: lecturer._id,
     dateTime,
     message,
   });
@@ -34,7 +51,7 @@ const getAppointments = async (req, res) => {
 
   const appointments = await Appointment.find({
     lecturer: lecturer._id,
-  });
+  }).populate("student", "Name Email");
 
   console.log("Appointments found:", appointments.length);
 

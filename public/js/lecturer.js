@@ -45,3 +45,10 @@ async function updateStatus(id, status) {
 }
 
 document.addEventListener("DOMContentLoaded", loadAppointments);
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("role");
+
+  window.location.href = "/";
+}

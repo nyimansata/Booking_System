@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", loadTeachers);
 
 async function loadTeachers() {
   try {
-    const res = await fetch("http://localhost:5000/api/v1/teachers");
+    const res = await fetch("http://localhost:5000/api/v1/lecturers");
     const teachers = await res.json();
 
     const teacherList = document.getElementById("teacherList");
@@ -70,7 +70,11 @@ const token = localStorage.getItem("token");
 
 function bookLecture(id) {
   selectedLecturerId = id;
-  document.getElementById("bookingModal").style.display = "block";
+  document.getElementById("bookingModal").style.display = "flex";
+}
+
+function openModal() {
+  document.getElementById("bookingModal").style.display = "flex";
 }
 
 function closeModal() {
