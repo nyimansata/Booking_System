@@ -68,16 +68,25 @@ const Login = async (req, res) => {
     return res.status(401).json({ message: "Invalid credentials" });
   }
 
+  // if (user.role === "Lecturer") {
+  //   const lecturer = await Lecturer.findOne({ email: user.Email });
+
+  //   if (!lecturer) {
+  //     return res.status(400).json({
+  //       message: "Lecturer profile not created by admin",
+  //     });
+  //   }
+
+  //   if (!lecturer.user) {
+  //     lecturer.user = user._id;
+  //     await lecturer.save();
+  //   }
+  // }
+
   if (user.role === "Lecturer") {
     const lecturer = await Lecturer.findOne({ email: user.Email });
 
-    if (!lecturer) {
-      return res.status(400).json({
-        message: "Lecturer profile not created by admin",
-      });
-    }
-
-    if (!lecturer.user) {
+    if (lecturer && !lecturer.user) {
       lecturer.user = user._id;
       await lecturer.save();
     }

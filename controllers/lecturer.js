@@ -32,11 +32,32 @@ const getLecturerById = async (req, res, next) => {
 };
 
 /* ---------------- ADD LECTURER ---------------- */
+// const addLecturer = async (req, res) => {
+//   try {
+//     const lecturer = await Lecturer.create(req.body);
+//     res.status(201).json(lecturer);
+//   } catch (error) {
+//     console.error("MONGOOSE ERROR:", error);
+
+//     res.status(400).json({ message: error.message });
+//   }
+// };
+
 const addLecturer = async (req, res) => {
   try {
-    const lecturer = await Lecturer.create(req.body);
+    const lecturer = await Lecturer.create({
+      name: req.body.name,
+      email: req.body.email,
+      department: req.body.department,
+      subject: req.body.subject,
+      dateTime: req.body.dateTime,
+      approved: false, // force pending
+      user: null, // explicitly null
+    });
+
     res.status(201).json(lecturer);
   } catch (error) {
+    console.error("MONGOOSE ERROR:", error);
     res.status(400).json({ message: error.message });
   }
 };

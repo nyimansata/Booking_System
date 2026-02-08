@@ -17,7 +17,11 @@ const lecturerSchema = new mongoose.Schema({
   },
   department: String,
   subject: String,
-  availability: [Date],
+
+  dateTime: {
+    type: Date,
+    required: true,
+  },
   approved: {
     type: Boolean,
     default: true,
